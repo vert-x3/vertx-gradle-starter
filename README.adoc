@@ -1,0 +1,93 @@
+= Vert.x Gradle Starter
+
+This project is a template to start your own Vert.x project using Gradle.
+
+== Prerequisites
+
+* JDK 8+
+
+== Getting started
+
+Create your project with:
+
+[source]
+----
+git clone https://github.com/cescoffier/vertx-gradle-starter.git PROJECT_NAME
+----
+
+Replace `PROJECT_NAME` with the name of your project.
+
+On Linux and MacOSx (or Windows with `bash`), if you want to go faster and generate an already configured project run:
+
+[source]
+----
+# Bash
+curl https://gist.githubusercontent.com/cescoffier/cfd46c2614f54d5e2a88d5fdc4b828ed/raw/2bba5f11b6a2f520704b6ba293e5289b58ce3904/create-project-maven.sh -o vertx-create-maven-project.sh && bash vertx-create-maven-project.sh
+
+# Fish
+curl https://gist.githubusercontent.com/cescoffier/cfd46c2614f54d5e2a88d5fdc4b828ed/raw/2bba5f11b6a2f520704b6ba293e5289b58ce3904/create-project-maven.sh -o vertx-create-maven-project.sh;; bash vertx-create-maven-project.sh
+----
+
+== Running the project
+
+Once you have retrieved the project, you can check that everything works with:
+
+[source]
+----
+./gradlew test run
+----
+
+The command compiles the project and runs the tests, then  it launches the application, so you can check by yourself. Open your browser to http://localhost:8080. You should see a _Hello World_ message.
+
+== Anatomy of the project
+
+The project contains:
+
+* the Gradle project and its configuration (`build.gradle`)
+* a _main_ verticle file (src/main/java/io/vertx/starter/MainVerticle.java)
+* an unit test (src/main/test/io/vertx/starter/MainVerticleTest.java)
+
+== Start to hack
+
+1. Delete the `.git` directory
+2. Open the `build.gradle` file and customize the `version`. You can also change the `mainVerticleName` variable to use your own package name and verticle class.
+3. Run `./gradlew run`.
+
+This last command relaunches Gradle and the application as soon as you change something in `src/main`.
+
+== Building the project
+
+To build the project, just use:
+
+----
+./gradlew shadowJar
+----
+
+It generates a _fat-jar_ in the `build/libs` directory.
+
+
+
+
+-----------
+This project shows how to use the Vert.x 3.2 redeploy feature. Vert.x watches for file changes and will then compile these changes. The hello world verticle will be redeployed automatically.
+Simply start the application with:
+
+    ./gradlew run
+
+Now point your browser at http://localhost:8080. Then you can make changes to the hello world verticle and reload the browser.
+
+The whole configuration for this is rather simple:
+
+    mainClassName = 'io.vertx.core.Launcher'
+    def mainVerticleName = 'io.vertx.example.HelloWorldVerticle'
+
+    // Vert.x watches for file changes in all subdirectories
+    // of src/ but only for files with .java extension
+    def watchForChange = 'src/**/*.java'
+
+    // Vert.x will call this task on changes
+    def doOnChange = './gradlew classes'
+
+    run {
+        args = ['run', mainVerticleName, "--redeploy=$watchForChange", "--launcher-class=$mainClassName", "--on-redeploy=$doOnChange"]
+    }
