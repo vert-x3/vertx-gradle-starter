@@ -3,17 +3,21 @@ plugins {
   id 'com.github.johnrengelman.shadow' version '1.2.3'
 }
 
+// Project version
+version = '1.0-SNAPSHOT'
+
 repositories {
   jcenter()
 }
 
-version = '3.3.2'
 sourceCompatibility = '1.8'
 
+
+def vertxVersion = '3.3.2'
 dependencies {
-  compile "io.vertx:vertx-core:$version"
+  compile "io.vertx:vertx-core:$vertxVersion"
   testCompile "junit:junit:4.12"
-  testCompile "io.vertx:vertx-unit:$version"
+  testCompile "io.vertx:vertx-unit:$vertxVersion"
 }
 
 mainClassName = 'io.vertx.core.Launcher'
