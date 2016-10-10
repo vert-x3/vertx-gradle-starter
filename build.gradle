@@ -13,7 +13,7 @@ repositories {
 sourceCompatibility = '1.8'
 
 
-def vertxVersion = '3.3.2'
+def vertxVersion = '3.3.3'
 dependencies {
   compile "io.vertx:vertx-core:$vertxVersion"
   testCompile "junit:junit:4.12"
