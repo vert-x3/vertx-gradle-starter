@@ -12,7 +12,7 @@ Create your project with:
 
 [source]
 ----
-git clone https://github.com/cescoffier/vertx-gradle-starter.git PROJECT_NAME
+git clone https://github.com/vert-x3/vertx-gradle-starter.git PROJECT_NAME
 ----
 
 Replace `PROJECT_NAME` with the name of your project.
