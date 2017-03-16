@@ -11,7 +11,7 @@ version = '1.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 mainClassName = 'io.vertx.core.Launcher'
 
-def vertxVersion = '3.4.0'
+def vertxVersion = '3.4.1'
 def mainVerticleName = 'io.vertx.starter.MainVerticle'
 def watchForChange = 'src/**/*'
 def doOnChange = './gradlew classes'
