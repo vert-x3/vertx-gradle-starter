@@ -1,6 +1,9 @@
 .gradle
 build/
 
+# Ignore VertX file cache
+.vertx/
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
