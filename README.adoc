@@ -41,7 +41,7 @@ The project contains:
 
 * the Gradle project and its configuration (`build.gradle`)
 * a _main_ verticle file (src/main/java/io/vertx/starter/MainVerticle.java)
-* an unit test (src/main/test/io/vertx/starter/MainVerticleTest.java)
+* a unit test (src/main/test/io/vertx/starter/MainVerticleTest.java)
 
 == Start to hack
 
