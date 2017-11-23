@@ -1,6 +1,6 @@
 plugins {
   id 'application'
-  id 'com.github.johnrengelman.shadow' version '1.2.3'
+  id 'com.github.johnrengelman.shadow' version '2.0.1'
 }
 
 repositories {
@@ -11,7 +11,7 @@ version = '1.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 mainClassName = 'io.vertx.core.Launcher'
 
-def vertxVersion = '3.4.2'
+def vertxVersion = '3.5.0'
 def mainVerticleName = 'io.vertx.starter.MainVerticle'
 def watchForChange = 'src/**/*'
 def doOnChange = './gradlew classes'
@@ -37,5 +37,5 @@ run {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '4.0'
+  gradleVersion = '4.3.1'
 }
