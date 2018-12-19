@@ -10,13 +10,16 @@ repositories {
   mavenCentral()
 }
 
-dependencies {
-  implementation("io.vertx:vertx-core:3.6.2")
+val vertxVersion = "3.6.2"
+val junitVersion = "5.3.2"
 
-  testImplementation("io.vertx:vertx-junit5:3.6.2")
-  testImplementation("io.vertx:vertx-web-client:3.6.2")
-  testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.2")
+dependencies {
+  implementation("io.vertx:vertx-core:$vertxVersion")
+
+  testImplementation("io.vertx:vertx-junit5:$vertxVersion")
+  testImplementation("io.vertx:vertx-web-client:$vertxVersion")
+  testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
 
 java {
