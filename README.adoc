@@ -39,51 +39,24 @@ The command compiles the project and runs the tests, then  it launches the appli
 
 The project contains:
 
-* the Gradle project and its configuration (`build.gradle`)
-* a _main_ verticle file (src/main/java/io/vertx/starter/MainVerticle.java)
-* a unit test (src/main/test/io/vertx/starter/MainVerticleTest.java)
+* the Gradle project using the Kotlin DSL (see `build.gradle.kts`) with auto-reloading and fat-jar building
+* a _main_ verticle file (`src/main/java/io/vertx/starter/MainVerticle.java`)
+* a unit test (`src/main/test/io/vertx/starter/MainVerticleTest.java`)
 
 == Start to hack
 
 1. Delete the `.git` directory
-2. Open the `build.gradle` file and customize the `version`. You can also change the `mainVerticleName` variable to use your own package name and verticle class.
+2. Open the `build.gradle.kts` file and customize `vertxVersion`. You can also change the `mainVerticleName` variable to use your own package name and verticle class.
 3. Run `./gradlew run`.
 
-This last command relaunches Gradle and the application as soon as you change something in `src/main`.
+This last command relaunches Gradle and the application as soon as you change something under `src/main`.
 
 == Building the project
 
 To build the project, just use:
 
 ----
-./gradlew shadowJar
+./gradlew build
 ----
 
 It generates a _fat-jar_ in the `build/libs` directory.
-
-
-
-
------------
-This project shows how to use the Vert.x 3.2 redeploy feature. Vert.x watches for file changes and will then compile these changes. The hello world verticle will be redeployed automatically.
-Simply start the application with:
-
-    ./gradlew run
-
-Now point your browser at http://localhost:8080. Then you can make changes to the hello world verticle and reload the browser.
-
-The whole configuration for this is rather simple:
-
-    mainClassName = 'io.vertx.core.Launcher'
-    def mainVerticleName = 'io.vertx.example.HelloWorldVerticle'
-
-    // Vert.x watches for file changes in all subdirectories
-    // of src/ but only for files with .java extension
-    def watchForChange = 'src/**/*.java'
-
-    // Vert.x will call this task on changes
-    def doOnChange = './gradlew classes'
-
-    run {
-        args = ['run', mainVerticleName, "--redeploy=$watchForChange", "--launcher-class=$mainClassName", "--on-redeploy=$doOnChange"]
-    }
