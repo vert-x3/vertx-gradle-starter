@@ -1,40 +1,37 @@
 package io.vertx.starter;
 
 import io.vertx.core.Vertx;
-import io.vertx.ext.unit.Async;
-import io.vertx.ext.unit.TestContext;
-import io.vertx.ext.unit.junit.VertxUnitRunner;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import io.vertx.ext.web.client.WebClient;
+import io.vertx.ext.web.codec.BodyCodec;
+import io.vertx.junit5.VertxExtension;
+import io.vertx.junit5.VertxTestContext;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@RunWith(VertxUnitRunner.class)
-public class MainVerticleTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-  private Vertx vertx;
+@ExtendWith(VertxExtension.class)
+class MainVerticleTest {
 
-  @Before
-  public void setUp(TestContext tc) {
-    vertx = Vertx.vertx();
-    vertx.deployVerticle(MainVerticle.class.getName(), tc.asyncAssertSuccess());
-  }
-
-  @After
-  public void tearDown(TestContext tc) {
-    vertx.close(tc.asyncAssertSuccess());
+  @BeforeEach
+  void prepare(Vertx vertx, VertxTestContext testContext) {
+    vertx.deployVerticle(MainVerticle.class.getCanonicalName(), testContext.succeeding(id -> testContext.completeNow()));
   }
 
   @Test
-  public void testThatTheServerIsStarted(TestContext tc) {
-    Async async = tc.async();
-    vertx.createHttpClient().getNow(8080, "localhost", "/", response -> {
-      tc.assertEquals(response.statusCode(), 200);
-      response.bodyHandler(body -> {
-        tc.assertTrue(body.length() > 0);
-        async.complete();
-      });
-    });
+  @DisplayName("Check that the server has started")
+  void checkServerHasStarted(Vertx vertx, VertxTestContext testContext) {
+    WebClient webClient = WebClient.create(vertx);
+    webClient.get(8080, "localhost", "/")
+      .as(BodyCodec.string())
+      .send(testContext.succeeding(response -> testContext.verify(() -> {
+        assertEquals(200, response.statusCode());
+        assertTrue(response.body().length() > 0);
+        assertTrue(response.body().contains("Hello Vert.x!"));
+        testContext.completeNow();
+      })));
   }
-
 }
