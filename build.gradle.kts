@@ -10,7 +10,7 @@ repositories {
   mavenCentral()
 }
 
-val vertxVersion = "3.6.3"
+val vertxVersion = "3.7.0"
 val junitVersion = "5.3.2"
 
 dependencies {
