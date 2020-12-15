@@ -3,7 +3,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 plugins {
   java
   application
-  id("com.github.johnrengelman.shadow") version "4.0.3"
+  id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
 repositories {
@@ -14,10 +14,12 @@ val vertxVersion = "3.9.4"
 val junitVersion = "5.3.2"
 
 dependencies {
-  implementation("io.vertx:vertx-core:$vertxVersion")
+  implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
 
-  testImplementation("io.vertx:vertx-junit5:$vertxVersion")
-  testImplementation("io.vertx:vertx-web-client:$vertxVersion")
+  implementation("io.vertx:vertx-core")
+
+  testImplementation("io.vertx:vertx-junit5")
+  testImplementation("io.vertx:vertx-web-client")
   testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
@@ -48,8 +50,6 @@ tasks {
     manifest {
       attributes["Main-Verticle"] = mainVerticleName
     }
-    mergeServiceFiles {
-      include("META-INF/services/io.vertx.core.spi.VerticleFactory")
-    }
+    mergeServiceFiles()
   }
 }
